@@ -1,3 +1,5 @@
+import { buildInviteResponse } from './invites';
+
 const defaultHandler = {
     async fetch(request, env, ctx): Promise<Response> {
         const url = new URL(request.url);
@@ -9,6 +11,13 @@ const defaultHandler = {
             case '/uptime':
                 // TODO is it possible to track uptime in a serverless environment?
                 return fetch(`https://jank.booky.dev${url.pathname}`);
+            case '/services/oembed':
+                const inviteResponse = await buildInviteResponse(request, env);
+                return new Response(JSON.stringify(inviteResponse), {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
             default:
                 // special invite SPA
                 if (url.pathname.startsWith('/invite/')) {
