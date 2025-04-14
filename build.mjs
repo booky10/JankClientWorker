@@ -49,9 +49,3 @@ instancesJson.forEach(instance => {
     }
 });
 fs.writeFileSync(instancesFile, JSON.stringify(jankInstances));
-
-console.log('Renaming index.html to fallback.html...');
-fs.renameSync('dist/index.html', 'dist/fallback.html');
-
-console.log('Renaming home.html to index.html...');
-fs.renameSync('dist/home.html', 'dist/index.html');
