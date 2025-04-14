@@ -1070,9 +1070,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jankclient@workspace:.":
+"jank@workspace:.":
   version: 0.0.0-use.local
-  resolution: "jankclient@workspace:."
+  resolution: "jank@workspace:."
   dependencies:
     "@cloudflare/workers-types": "npm:^4.20250414.0"
     "@types/node": "npm:^22.14.1"
