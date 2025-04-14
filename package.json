@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "license": "GPL-3.0-only",
     "scripts": {
+        "build": "node build.mjs",
         "deploy": "wrangler deploy",
         "dev": "wrangler dev",
         "start": "wrangler dev",
@@ -10,6 +11,7 @@
     },
     "devDependencies": {
         "@cloudflare/workers-types": "^4.20250414.0",
+        "@types/node": "^22.14.1",
         "typescript": "^5.5.2",
         "wrangler": "^4.10.0"
     }
