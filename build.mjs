@@ -30,3 +30,28 @@ await execCommand('npm', ['run', 'build'], 'client');
 console.log('Copying jankclient static distribution files to own distribution dir...');
 fs.rmSync('dist', { recursive: true });
 fs.cpSync('client/dist/webpage', 'dist', { recursive: true });
+
+console.log('Fetching common spacebar instances and combining them...');
+const instancesFile = 'dist/instances.json';
+const /**any[]*/jankInstances = JSON.parse(fs.readFileSync(instancesFile).toString());
+const instancesResponse = await fetch(
+        'https://raw.githubusercontent.com/spacebarchat/spacebarchat/master/instances/instances.json');
+const /**any[]*/instancesJson = await instancesResponse.json();
+instancesJson.forEach(instance => {
+    const existingInstance = jankInstances.find(jankInstance => jankInstance.name === instance.name);
+    if (!existingInstance) {
+        jankInstances.push(instance);
+    } else {
+        // merge the two instance objects
+        Object.keys(instance)
+                .filter(key => !(key in existingInstance))
+                .forEach(key => existingInstance[key] = instance[key]);
+    }
+});
+fs.writeFileSync(instancesFile, JSON.stringify(jankInstances));
+
+console.log('Renaming index.html to fallback.html...');
+fs.renameSync('dist/index.html', 'dist/fallback.html');
+
+console.log('Renaming home.html to index.html...');
+fs.renameSync('dist/home.html', 'dist/index.html');
