@@ -6,7 +6,7 @@ const handleDefaultFetch: ExportedHandler<Env>['fetch'] = async (request, env, _
     const url = new URL(request.url);
     switch (url.pathname) {
         case '/':
-            url.pathname = 'home.html';
+            url.pathname = 'home';
             return env.ASSETS.fetch(url);
         case '/instances.json':
             const instances: InstanceInfo[] = await env.ASSETS.fetch(url)
@@ -53,7 +53,7 @@ const handleDefaultFetch: ExportedHandler<Env>['fetch'] = async (request, env, _
             if (url.pathname.endsWith('.html')) {
                 url.pathname = url.pathname.substring(0, url.pathname.length - '.html'.length);
             }
-            return env.ASSETS.fetch(request);
+            return env.ASSETS.fetch(url);
     }
 };
 
