@@ -1,6 +1,8 @@
-# JankClientCF
+# JankClientWorker
 
-Uses Cloudflare Pages/Workers for fast deployment
+Uses Cloudflare Pages/Workers for fast deployment and fast access everywhere.
+
+Hosted at https://jank.booky.workers.dev/ using Cloudflare Free Plan.
 
 ## Self-hosting
 
