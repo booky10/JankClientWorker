@@ -49,6 +49,10 @@ const handleDefaultFetch: ExportedHandler<Env>['fetch'] = async (request, env, _
             if (url.pathname.startsWith('/invite/')) {
                 url.pathname = '/invite.html';
             }
+            // prevent cloudflare doing a redirect on .html files (just removes the .html suffix)
+            if (url.pathname.endsWith('.html')) {
+                url.pathname = url.pathname.substring(0, url.pathname.length - '.html'.length);
+            }
             return env.ASSETS.fetch(request);
     }
 };
