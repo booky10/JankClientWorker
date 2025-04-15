@@ -20,5 +20,10 @@
             "binding": "UPTIME",
             "id": "4a4752541d2a4a19bb32e5772f092f48"
         }
-    ]
+    ],
+    "triggers": {
+        "crons": [
+            "*/7 * * * *"
+        ]
+    }
 }
