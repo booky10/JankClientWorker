@@ -60,7 +60,7 @@ const checkHealth = async (data: UptimeData, instance: InstanceInfo) => {
         return true; // changed
     }
     const pingUrl = normalizeUrl(apiUrl);
-    pingUrl.pathname += '/ping';
+    pingUrl.pathname += 'ping';
     // fetch head of ping endpoint
     const response = await fetch(pingUrl, { method: 'HEAD' });
     updateHealth(data, instance, response.ok);

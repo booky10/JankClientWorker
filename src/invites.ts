@@ -13,10 +13,15 @@ const fetchInviteInfo = async (request: Request, env: Env) => {
     if (!url.pathname.startsWith('/invite/')) {
         throw new Error(`Invalid invite URL: ${url}`);
     }
-    const code = url.pathname.substring('/invite/'.length);
+    let code = url.pathname.substring('/invite/'.length);
     if (!code) {
         throw new Error(`Missing invite code in invite: ${url}`);
     }
+    const slashIndex = code.indexOf('/');
+    if (slashIndex >= 0) {
+        code = code.substring(0, slashIndex);
+    }
+
     const instance = url.searchParams.get('instance');
     if (!instance || !URL.canParse(instance)) {
         throw new Error(`Missing or invalid instance in invite: ${url}`);
@@ -31,7 +36,7 @@ const fetchInviteInfo = async (request: Request, env: Env) => {
     const urlInfo = await getApiInfo(new URL(instance), instances, true);
 
     // fetch invitation info
-    const invite: InviteInfo = await fetch(`${urlInfo.api}/invites/${code}`)
+    const invite: InviteInfo = await fetch(`${urlInfo.api}invites/${code}`)
             .then(resp => resp.json());
 
     return { urlInfo, invite };
@@ -46,7 +51,7 @@ const buildInviteData = async (request: Request, env: Env) => {
             ? `${invite.inviter.username} has invited you to ${guildName}${guildDescription}`
             : `You've been invited to ${guildName}${guildDescription}`;
     const guildIconUrl = !invite.guild.icon ? '' :
-            `${urlInfo.cdn}/icons/${invite.guild.id}/${invite.guild.icon}.png`;
+            `${urlInfo.cdn}icons/${invite.guild.id}/${invite.guild.icon}.png`;
 
     return {
         type: 'link',

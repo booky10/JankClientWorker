@@ -32,8 +32,8 @@ export const getApiInfo = async (url: URL, instances: InstanceInfo[], check = tr
 
     // fetch domain info from instance itself
     const apiUrl = normalizeUrl(info.api);
-    if (!apiUrl.pathname.includes('api')) apiUrl.pathname += '/api';
-    apiUrl.pathname += '/policies/instance/domains';
+    if (!apiUrl.pathname.includes('api')) apiUrl.pathname += 'api/';
+    apiUrl.pathname += 'policies/instance/domains';
     const domains: DomainsInfo = await fetch(apiUrl)
             .then(resp => resp.json());
 
